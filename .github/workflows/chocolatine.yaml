@@ -160,7 +160,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git pull origin main
-          git add dist/*
+          git add dist/* README.md
           git commit -m "Add generated snake graph"
           git push
             
