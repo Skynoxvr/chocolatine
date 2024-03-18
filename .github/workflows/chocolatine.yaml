@@ -129,6 +129,7 @@ jobs:
           ssh_private_key:
             ${{ secrets.SSH_KEY }}
   generate:
+    needs: [check_repo]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     
