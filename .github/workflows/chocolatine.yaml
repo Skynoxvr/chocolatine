@@ -129,7 +129,7 @@ jobs:
           ssh_private_key:
             ${{ secrets.SSH_KEY }}
   generate:
-    needs: [print_repo_name]
+    needs: [setup]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
