@@ -14,7 +14,7 @@ env:
 
 jobs:
   check_coding_style:
-    name: "Use coding_style_checker script to verify if the code is clean and report any coding-style errors"
+    name: "Use coding_style_checker"
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
@@ -36,7 +36,7 @@ jobs:
   
 
   check_repo:
-    name: "Checks if the repository is clean and void of any unwanted files (temp files, binary files, etc.)"
+    name: "Checks if the repository is clean"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -55,7 +55,7 @@ jobs:
 
   check_program_compilation:
     needs: [check_repo]
-    name: "Checks if make compil and test all binary listed in the ARGUMENTS variable"
+    name: "Checks if make compil"
     runs-on: ubuntu-latest
     container:
       image: epitechcontent/epitest-docker:latest

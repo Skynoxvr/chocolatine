@@ -1,35 +1,36 @@
 ##
-## EPITECH PROJECT, 2019
+## EPITECH PROJECT, 2023
 ## Makefile
 ## File description:
 ## rtfm
 ##
 
-CC    =    gcc
+CC			=	gcc
 
-SRC    =    main.c
+SRC			=	main.c
 
-OBJ    =    $(SRC:.c=.o)
+OBJ			=	$(SRC:.c=.o)
 
-NAME    =    my_exec
+NAME		=	test
 
-all:    $(NAME)
-$(NAME):    $(OBJ)
-    $(CC) $(OBJ) -o $(NAME)
+$(NAME):	 $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
 
-clean:
-    $(RM) $(OBJ)
+all:	$(NAME)
 
 tests_run:
-    make -C ./tests
+	make -C tests/
+
+clean:
+	rm -f $(OBJ)
 
 coverage:
-    @gcovr
+	@gcovr
 
 fclean: clean
-    rm -f $(NAME)
-    make fclean -C ./tests
+	rm -f $(NAME)
+	make fclean -C ./tests
 
-re:    fclean all
+re:	fclean all
 
-.PHONY:    $(NAME) all clean fclean
+.PHONY:	$(NAME) all clean fclean
