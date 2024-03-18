@@ -150,6 +150,12 @@ jobs:
             dist/github-snake-dark.svg?palette=github-dark
             dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
 
+      - name: Create README
+        run: |
+          echo "# My GitHub Contribution Snake" > README.md
+          echo "![GitHub Snake](dist/github-snake.svg)" >> README.md
+          echo "![GitHub Snake Dark](dist/github-snake-dark.svg)" >> README.md
+          
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
