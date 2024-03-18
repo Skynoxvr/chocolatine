@@ -129,17 +129,26 @@ jobs:
           ssh_private_key:
             ${{ secrets.SSH_KEY }}
   generate:
-    needs: [check_repo]
+    needs: [print_repo_name]
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           ssh-key: ${{ secrets.SSH_KEY }}
 
+      - name: Check if file or directory exists
+        id: check_file
+        run: |
+          if [[ -e "dist/" ]]; then
+            echo "::set-output name=skip::true"
+          else
+            echo "::set-output name=skip::false"
+          fi
+
       - name: Generate github-contribution-grid-snake.svg
+        if: steps.check_file.outputs.skip == 'false'
         uses: Platane/snk@v3
         with:
           github_user_name: ${{ github.repository_owner }}
@@ -149,12 +158,14 @@ jobs:
             dist/github-snake-dark.svg?palette=github-dark
             dist/ocean.gif?color_snake=orange&color_dots=#bfd6f6,#8dbdff,#64a1f4,#4b91f1,#3c7dd9
 
-      - name: Create README
+      - name: Update README
+        if: steps.check_file.outputs.skip == 'false'
         run: |
-          echo "# My GitHub Contribution Snake" > README.md
-          echo "![GitHub Snake Dark](dist/github-snake-dark.svg)" >> README.md
-          
+          echo -e "# My contribution snake\n" > README.md
+          echo -e "\n![Ocean GIF](dist/github-snake-dark.svg)" >> README.md
+
       - name: Commit and push
+        if: steps.check_file.outputs.skip == 'false'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -162,4 +173,3 @@ jobs:
           git add dist/* README.md
           git commit -m "Add generated snake graph"
           git push
-            
