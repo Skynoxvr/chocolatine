@@ -88,14 +88,14 @@ jobs:
         run: make tests_run
         timeout-minutes: 2
 
-    setup:
-      run-on: ubuntu-latest
-      output:
-        ingnore: ${{ steps.set_ingnore.outputs.ingnore }}
-      steps:
-        -id: set_ingnore
-        run: echo "::set-output name=ingnore::${{ contains(secret.IGNORE_REPOS, github.repository ) }}"
-        timeout-minutes: 2
+  setup:
+    run-on: ubuntu-latest
+    output:
+      ingnore: ${{ steps.set_ingnore.outputs.ingnore }}
+    steps:
+      -id: set_ingnore
+      run: echo "::set-output name=ingnore::${{ contains(secret.IGNORE_REPOS, github.repository ) }}"
+      timeout-minutes: 2
 
 
   push_to_mirror:
