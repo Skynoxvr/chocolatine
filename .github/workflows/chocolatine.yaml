@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     container: ghcr.io/epitech/coding-style-checker:latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - id: check_coding_style
         run: |
           check.sh $(pwd) $(pwd)
@@ -83,7 +83,7 @@ jobs:
       image: epitechcontent/epitest-docker:latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - id: run_tests
         run: make tests_run
         timeout-minutes: 2
