@@ -9,7 +9,7 @@ on:
     - "ga-ignore-*"
 
 env:
-  MIRROR_URL: ${{ secrets.MIRROR_URL }}
+  MIRROR_URL: ${{ variable.MIRROR_URL }}
   EXECUTABLES: "test"
 
 jobs:
