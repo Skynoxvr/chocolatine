@@ -90,7 +90,7 @@ jobs:
 
   push_to_mirror:
     needs: [run_tests]
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' }} && ${{ github.repository != env.MIRROR_URL }}
     name: "Push all files to mirror specified"
     runs-on: ubuntu-latest
 
