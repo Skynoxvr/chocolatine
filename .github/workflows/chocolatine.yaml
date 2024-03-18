@@ -74,6 +74,19 @@ jobs:
               ./$x $ARGUMENTS
             done
           IFS=$OIFS
+  check_merge:
+    needs: [check_program_compilation]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Check if merge commit
+        run: |
+          if git log --merges -n 1 --pretty="%H" | grep -q "${{ github.sha }}"; then
+            echo "This is a merge commit."
+          else
+            echo "This is not a merge commit."
+          fi
 
   run_tests:
     needs: [check_program_compilation]
