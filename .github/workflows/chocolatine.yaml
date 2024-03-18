@@ -89,8 +89,8 @@ jobs:
         timeout-minutes: 2
 
   setup:
-    run-on: ubuntu-latest
-    output:
+    runs-on: ubuntu-latest
+    outputs:
       ingnore: ${{ steps.set_ingnore.outputs.ingnore }}
     steps:
       - id: set_ingnore
