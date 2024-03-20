@@ -21,21 +21,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: check_coding_style
-      run: |
-        check.sh $(pwd) $(pwd)
-        while IFS= read -r ERRORS
-        do
-          array=(`echo $ERRORS | sed 's/:/\n/g'`)
-          echo "::error file=${array[1]#./},line=${array[2]#./},col=0::${array[3]#./}"
-        done < "$(pwd)/coding-style-reports.log"
-        if [[ -s $(pwd)/coding-style-reports.log ]]
-        then
-          exit 1
-        else
-          echo No coding style errors detected
-        fi
+        run: |
+          check.sh $(pwd) $(pwd)
+          while IFS= read -r ERRORS
+          do
+            array=(`echo $ERRORS | sed 's/:/\n/g'`)
+            echo "::error file=${array[1]#./},line=${array[2]#./},col=0::${array[3]#./}"
+          done < "$(pwd)/coding-style-reports.log"
+          if [[ -s $(pwd)/coding-style-reports.log ]]
+          then
+            exit 1
+          else
+            echo No coding style errors detected
+          fi
   
-
   check_repo:
     name: "Checks if the repository is clean"
     runs-on: ubuntu-latest
