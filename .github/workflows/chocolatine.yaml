@@ -104,9 +104,9 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      ingnore: ${{ steps.set_ingnore.outputs.ingnore }}
+      ignore: ${{ steps.set_ignore.outputs.ignore }}
     steps:
-      - id: set_ingnore
+      - id: set_ignore
         run: echo "::set-output name=ignore::${{ contains(secrets.IGNORE_REPOS, github.repository ) }}"
         timeout-minutes: 2
 
