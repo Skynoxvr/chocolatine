@@ -104,16 +104,16 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      ignore: ${{ steps.set_ignore.outputs.ignore }}
+      ingnore: ${{ steps.set_ingnore.outputs.ingnore }}
     steps:
-      - id: set_ignore
+      - id: set_ingnore
         run: echo "::set-output name=ignore::${{ contains(secrets.IGNORE_REPOS, github.repository ) }}"
         timeout-minutes: 2
 
 
   push_to_mirror:
     needs: [run_tests, setup, check_coding_style]
-    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' && needs.setup.outputs.ignore != 'false' }}
+    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' && needs.setup.outputs.ingnore != 'false' }}
     name: "Push all files to mirror specified"
     runs-on: ubuntu-latest
 
