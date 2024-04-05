@@ -116,7 +116,7 @@ jobs:
 
   push_to_mirror:
     needs: [run_tests, setup, check_coding_style]
-    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' && needs.setup.outputs.ignore != 'false' }}
+    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' && needs.setup.outputs.ignore == 'false' }}
     name: "Push all files to mirror specified"
     runs-on: ubuntu-latest
 
