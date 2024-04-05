@@ -172,3 +172,4 @@ jobs:
           git add dist/* README.md
           git commit -m "Add generated snake graph"
           git push
+
