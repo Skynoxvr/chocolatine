@@ -101,7 +101,7 @@ jobs:
         run: make tests_run
         timeout-minutes: 2
 
-setup:
+  setup:
     runs-on: ubuntu-latest
     outputs:
       ignore: ${{ steps.set_ignore.outputs.ignore }}
@@ -113,7 +113,6 @@ setup:
       - id: set_ignore
         run: echo "::set-output name=ignore::${{ contains(secrets.IGNORE_REPOS, github.repository) }}"
         timeout-minutes: 1
-
 
   push_to_mirror:
     needs: [run_tests, setup, check_coding_style]
@@ -131,6 +130,7 @@ setup:
             ${{ env.MIRROR_URL }}
           ssh_private_key:
             ${{ secrets.SSH_KEY }}
+
   generate:
     needs: [setup]
     runs-on: ubuntu-latest
