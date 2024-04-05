@@ -107,7 +107,7 @@ jobs:
       ingnore: ${{ steps.set_ingnore.outputs.ingnore }}
     steps:
       - id: set_ingnore
-        run: echo "::set-output name=ignore::${{ contains(secrets.IGNORE_REPOS, github.repository ) }}"
+        run: echo "::set-output name=ingnore::${{ contains(secrets.IGNORE_REPOS, github.repository ) }}"
         timeout-minutes: 2
 
 
