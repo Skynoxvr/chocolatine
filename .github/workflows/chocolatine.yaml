@@ -101,19 +101,23 @@ jobs:
         run: make tests_run
         timeout-minutes: 2
 
-  setup:
+setup:
     runs-on: ubuntu-latest
     outputs:
-      ingnore: ${{ steps.set_ingnore.outputs.ignore }}
+      ignore: ${{ steps.set_ignore.outputs.ignore }}
+      start_time: ${{ steps.set_start_time.outputs.start_time }}
     steps:
-      - id: set_ingnore
-        run: echo "::set-output name=ignore::${{ contains(secrets.IGNORE_REPOS, github.repository ) }}"
-        timeout-minutes: 2
+      - name: Set start time
+        id: set_start_time
+        run: echo "::set-output name=start_time::$(date +%s)"
+      - id: set_ignore
+        run: echo "::set-output name=ignore::${{ contains(secrets.IGNORE_REPOS, github.repository) }}"
+        timeout-minutes: 1
 
 
   push_to_mirror:
     needs: [run_tests, setup, check_coding_style]
-    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' && needs.setup.outputs.ingnore != 'false' }}
+    if: ${{ github.event_name == 'push' && github.actor != 'github-actions[bot]' && needs.setup.outputs.ignore != 'false' }}
     name: "Push all files to mirror specified"
     runs-on: ubuntu-latest
 
